@@ -23,7 +23,7 @@ The current V1 system combines:
 
 The basic interaction loop is:
 
-
+```text
                     PPO Agent
                         │
                       action
@@ -50,39 +50,40 @@ The basic interaction loop is:
                         │
                         ▼
                     PPO update
-
+```
 
 ### Observation
 
 The V1 environment processes the original Game Boy screen from approximately:
 
+```text
 144 × 160 × 3
-
+```
 
 to:
 
-
+```text
 36 × 40 × 3
-
+```
 
 It keeps a history of three recent frames and combines this visual information with additional exploration/reward memory into the model observation:
 
-
+```text
 128 × 40 × 3
-
+```
 
 ### Action space
 
 The default action space contains six controller actions:
 
-
+```text
 0 → DOWN
 1 → LEFT
 2 → RIGHT
 3 → UP
 4 → A
 5 → B
-
+```
 
 These abstract RL actions are translated into PyBoy `WindowEvent` inputs.
 
@@ -90,7 +91,7 @@ These abstract RL actions are translated into PyBoy `WindowEvent` inputs.
 
 The V1 baseline uses a screen-based exploration mechanism:
 
-
+```text
 current screen
       ↓
 36 × 40 × 3
@@ -100,13 +101,13 @@ flatten → 4320-dimensional vector
 HNSW / KNN similarity search
       ↓
 exploration reward
-
+```
 
 The environment can also use coordinate-based exploration, controlled by its configuration.
 
 ## Repository Structure
 
-
+```text
 pokemon-red-rl/
 │
 ├── README.md
@@ -125,7 +126,7 @@ pokemon-red-rl/
     ├── run_baseline_parallel_fast.py
     ├── tensorboard_callback.py
     └── ...
-
+```
 
 Generated files such as training sessions, videos, logs, checkpoints, and emulator output should not be committed unless specifically needed as small demonstration artifacts.
 
@@ -165,19 +166,19 @@ The project also requires **FFmpeg** for video-related functionality used by the
 
 Place your legally obtained Pokémon Red ROM in the repository root:
 
-
+```text
 pokemon-red-rl/
 ├── PokemonRed.gb
 ├── has_pokedex_nballs.state
 ├── baselines/
 └── ...
-
+```
 
 The V1 configuration expects the ROM at:
 
-
+```text
 ../PokemonRed.gb
-
+```
 
 when running scripts from the `baselines/` directory.
 
@@ -209,7 +210,7 @@ python run_baseline_parallel_fast.py
 
 ### Parallel training concept
 
-
+```text
              Shared PPO Policy
                     │
        ┌────────────┼────────────┐
@@ -222,7 +223,7 @@ python run_baseline_parallel_fast.py
                     │
                     ▼
                 PPO update
-
+```
 
 The number of environments and training parameters can be adjusted in the training configuration.
 
@@ -264,7 +265,7 @@ After reproducing the baseline, the next stage is to analyze its failure modes a
 
 ## Planned Development
 
-
+```text
 V1 baseline
    ↓
 Reproduce
@@ -282,7 +283,7 @@ Compare V1 vs V2
 Develop custom improvements
    ↓
 Evaluate long-horizon progression
-
+```
 
 Potential future directions include:
 
